@@ -1,0 +1,58 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'maven-publish'
+def DEBUG_REMOTE_REPO_URL = "http://xxx/repository/maven-snapshots/"
+def RELEASE_REMOTE_REPO_URL = "http://xxx/repository/maven-releases/"
+
+// 在项目级别设置坐标信息
+version = '1.0.0'
+group = 'hwsj'
+
+gradlePlugin {
+    plugins {
+        debouncePlugin {
+            id = 'debounce-plugin'
+            implementationClass = 'com.sunyuan.click.debounce.DebouncePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        // 配置插件发布
+        pluginMaven(MavenPublication) {
+            // 坐标信息会自动从项目配置中继承
+            // 可以添加额外的配置
+            pom {
+                name = 'Debounce Plugin'
+                description = 'A Gradle plugin for debouncing click events'
+                url = 'https://github.com/your-repo/debounce-plugin'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'lianyagang'
+                        name = 'lianyagang'
+                        email = 'lianyagang@baidu.com'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = version.endsWith('SNAPSHOT') ? DEBUG_REMOTE_REPO_URL : RELEASE_REMOTE_REPO_URL
+            credentials {
+                username = "xxx"
+                password = "xxx"
+            }
+            allowInsecureProtocol(true)
+        }
+    }
+}
