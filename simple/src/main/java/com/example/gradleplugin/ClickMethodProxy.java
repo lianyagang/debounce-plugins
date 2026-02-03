@@ -10,8 +10,6 @@ import com.sunyuan.debounce.lib.ClickDeBounce;
 import com.sunyuan.debounce.lib.InterfaceMethodProxy;
 import com.sunyuan.debounce.lib.MethodHookParam;
 
-import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
  * @author sy007
@@ -126,7 +124,6 @@ public class ClickMethodProxy {
      * @param param 事件方法描述
      * @return 返回true表示拦截，false则不拦截
      */
-    @AnnotationMethodProxy(type = OnItemClick.class)
     public boolean onItemClickWithButterKnifeProxy(MethodHookParam param) {
         boolean isBounce = checker.checkAny(param.generateUniqueId(), CHECK_TIME);
         LogUtil.d("onItemClickWithButterKnifeProxy=>" + "[isBounce:" + isBounce + ",checkTime:" + CHECK_TIME + "]");
@@ -149,7 +146,6 @@ public class ClickMethodProxy {
      * @param param 事件方法描述
      * @return 返回true表示拦截，false则不拦截
      */
-    @AnnotationMethodProxy(type = OnClick.class)
     public boolean onClickWithButterKnifeProxy(MethodHookParam param) {
         boolean isBounce;
         if (param.args.length != 0) {

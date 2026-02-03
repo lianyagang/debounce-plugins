@@ -1,7 +1,6 @@
 package com.sunyuan.click.debounce.task
 
 import ClickMethodVisitor
-import com.android.build.gradle.BaseExtension
 import com.sunyuan.click.debounce.entity.ProxyClassEntity
 import com.sunyuan.click.debounce.extensions.isJarSignatureRelatedFiles
 import com.sunyuan.click.debounce.utils.*
@@ -13,6 +12,7 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.Classpath
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import java.io.BufferedOutputStream
@@ -35,6 +35,9 @@ abstract class ModifyClassesTask : DefaultTask() {
     @get:InputFiles
     abstract val allDirectories: ListProperty<Directory>
 
+    @get:Classpath
+    abstract val bootClasspath: ListProperty<RegularFile>
+
     @get:OutputFile
     abstract val output: RegularFileProperty
 
@@ -51,7 +54,8 @@ abstract class ModifyClassesTask : DefaultTask() {
         }).toList()
 
         val classLoader = ClassLoaderUtil.getClassLoader(
-            compileClasspath, project.getAndroid<BaseExtension>().bootClasspath
+            compileClasspath,
+            bootClasspath.get().map { it.asFile }
         )
 
         InterfaceFinderUtil.setUrlClassLoader(classLoader)

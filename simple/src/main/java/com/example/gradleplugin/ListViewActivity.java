@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 
 public class ListViewActivity extends AppCompatActivity {
 
@@ -25,7 +23,6 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        ButterKnife.bind(this);
         ListView lv = findViewById(R.id.lv_list);
         List<Map<String, Object>> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -39,7 +36,6 @@ public class ListViewActivity extends AppCompatActivity {
                 , new int[]{android.R.id.text1, android.R.id.text2}));
     }
 
-    @OnItemClick(R.id.lv_list)
     void onItemClick(AdapterView<?> p0, int position) {
         LogUtil.d("ListView.onItemClick click" + position);
     }

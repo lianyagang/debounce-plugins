@@ -12,8 +12,6 @@ import com.sunyuan.debounce.lib.ClickDeBounce;
 import com.sunyuan.debounce.lib.IgnoreClickDeBounce;
 import com.sunyuan.simple.lib.LibraryActivity;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         findViewById(R.id.cb).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,10 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LogUtil.d("Lambda点击事件hook(实例方法引用)");
     }
 
-    @OnClick(R.id.btn_butter_knife)
-    void onClick() {
-        LogUtil.d("ButterKnife设置onClick事件");
-    }
+
 
 
     /**

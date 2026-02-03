@@ -12,6 +12,8 @@ import org.apache.commons.compress.parallel.InputStreamSupplier
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
+import java.util.Locale
+import java.util.Locale.getDefault
 import java.util.concurrent.*
 import java.util.jar.JarFile
 import java.util.zip.ZipEntry
@@ -43,7 +45,7 @@ fun File.transform(
                 it.transform(File(output, base.relativize(it.toURI()).path), inputDir, transformer)
             }
         }
-        isFile -> when (extension.toLowerCase()) {
+        isFile -> when (extension.lowercase(getDefault())) {
             "jar" -> JarFile(this).use {
                 it.transform(output, { zipEntry ->
                     JarArchiveEntry(zipEntry)
